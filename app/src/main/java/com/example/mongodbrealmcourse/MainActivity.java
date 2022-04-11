@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telecom.CallRedirectionService;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mongodbrealmcourse.ui.login.LoginActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -44,6 +47,43 @@ class Receipt extends Document{
                 .append("time", Calendar.getInstance().getTime())
                 .append("amount", amount)
                 .append("customer_id", customer_id);
+    }
+}
+
+class Cashier extends Document{
+    // cashier(String cashier_id, String name, String store_id)
+    Cashier(User user, String cashier_id, String name, String store_id){
+        super("userid",user.getId());
+        this.append("cashier_id",cashier_id)
+                .append("name", name)
+                .append("store_id", store_id);
+    }
+}
+
+class Customer extends Document{
+    // cashier(String cashier_id, String name, String store_id)
+    Customer(User user, String customer_id, String name){
+        super("userid",user.getId());
+        this.append("customer_id",customer_id)
+                .append("name", name);
+    }
+}
+
+class Store extends Document{
+    // cashier(String cashier_id, String name, String store_id)
+    Store(User user, String store_id, String name){
+        super("userid",user.getId());
+        this.append("store_id",store_id)
+                .append("name", name);
+    }
+}
+
+class Item extends Document{
+    Item(String item_id, String price, String name){
+        super();
+        this.append("item_id",item_id)
+                .append("price",price)
+                .append("name",name);
     }
 }
 
@@ -113,6 +153,11 @@ public class MainActivity extends AppCompatActivity {
                 mongoDatabase = mongoClient.getDatabase("mydatabase");
                 MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("mycollection");
                 MongoCollection<Document> receipts_collection = mongoDatabase.getCollection("receipts_collection");
+                MongoCollection<Document> cashier_collection = mongoDatabase.getCollection("cashier_collection");
+                MongoCollection<Document> customer_collection = mongoDatabase.getCollection("customer_collection");
+                MongoCollection<Document> store_collection = mongoDatabase.getCollection("store_collection");
+                MongoCollection<Document> item_collection = mongoDatabase.getCollection("item_collection");
+
 //                mongoCollection.insertOne(new Document("userid",user.getId()).append("data",dataEditText.getText().toString())).getAsync(result -> {
 //                    if(result.isSuccess())
 //                    {
@@ -139,6 +184,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //on click end
+            }
+        });
+        Button login_btn = findViewById(R.id.go_to_login);
+        Context ctx = this;
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent switchActivityIntent = new Intent(ctx, LoginActivity.class);
             }
         });
 // For sample only: make sure there is a valid server client ID.

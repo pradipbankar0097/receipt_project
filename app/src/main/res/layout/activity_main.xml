@@ -16,10 +16,16 @@
         android:id="@+id/data"/>
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Upload Data"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/button"/>
+        android:text="Upload Data"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/go_to_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login" />
 </LinearLayout>
