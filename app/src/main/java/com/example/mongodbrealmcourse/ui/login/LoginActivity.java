@@ -5,6 +5,8 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,15 +25,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mongodbrealmcourse.MainActivity;
 import com.example.mongodbrealmcourse.R;
 import com.example.mongodbrealmcourse.ui.login.LoginViewModel;
 import com.example.mongodbrealmcourse.ui.login.LoginViewModelFactory;
 import com.example.mongodbrealmcourse.databinding.ActivityLoginBinding;
 
+import io.realm.Realm;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.User;
+
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    String Appid = "myreceipt-xfltt";
+    private App app;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,13 +52,19 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
-        final Button loginButton = binding.login;
+        final Button loginButton = binding.loginbtn;
         final ProgressBar loadingProgressBar = binding.loading;
+
+        Realm.init(this);
+        loadingProgressBar.setVisibility(View.GONE);
+
+
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -114,12 +133,45 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
+//                loginViewModel.login(usernameEditText.getText().toString(),
+//                        passwordEditText.getText().toString());
+
+//                Realm.init(this);
+
+                app = new App(new AppConfiguration.Builder(Appid).build());
+                Credentials anonymous = Credentials.anonymous();
+                Credentials credentials = Credentials.emailPassword(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                app.loginAsync(credentials, new App.Callback<User>() {
+                    @Override
+                    public void onResult(App.Result<User> result) {
+                        if(result.isSuccess())
+                        {
+                            Log.v("User","Logged In Successfully");
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+
+
+
+
+                        }
+                        else
+                        {
+                            Toast.makeText(LoginActivity.this, "Invalid Credentials, Try Again!", Toast.LENGTH_SHORT).show();
+                            usernameEditText.setText("");
+                            passwordEditText.setText("");
+
+
+                        }
+                        loadingProgressBar.setVisibility(View.GONE);
+                    }
+                });
+
             }
         });
     }
