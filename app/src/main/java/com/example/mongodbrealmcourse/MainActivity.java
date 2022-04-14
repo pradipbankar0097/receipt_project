@@ -92,9 +92,9 @@ import com.example.mongodbrealmcourse.data.model.Entity;
 
 public class MainActivity extends AppCompatActivity {
 
+
     String Appid = "myreceipt-xfltt";
     private App app;
-
     public static final String TAG = "ServerAuthCodeActivity";
     private static final int RC_GET_AUTH_CODE = 9003;
 
@@ -115,25 +115,6 @@ public class MainActivity extends AppCompatActivity {
         dataEditText = (EditText) findViewById(R.id.data);
 
 
-        Realm.init(this);
-
-        app = new App(new AppConfiguration.Builder(Appid).build());
-        Credentials anonymous = Credentials.anonymous();
-        Credentials credentials = Credentials.emailPassword("pradipbankar0097@gmail.com","pradip1");
-        app.loginAsync(credentials, new App.Callback<User>() {
-            @Override
-            public void onResult(App.Result<User> result) {
-                if(result.isSuccess())
-                {
-                    Log.v("User","Logged In Successfully");
-
-                }
-                else
-                {
-                    Log.v("User","Failed to Login");
-                }
-            }
-        });
 
         /*app.getEmailPassword().registerUserAsync("CS@CS.com","Rocking",it->{
             if(it.isSuccess())
