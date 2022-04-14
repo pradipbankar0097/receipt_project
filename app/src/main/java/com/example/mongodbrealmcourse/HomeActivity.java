@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.mongodbrealmcourse.data.model.Receipts;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -13,13 +14,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mongodbrealmcourse.databinding.ActivityHomeBinding;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
+    private RecyclerView ReceiptsRecyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,22 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        ReceiptsRecyclerView = findViewById(R.id.ReceiptsRecyclerView);
+        ArrayList<Receipts> Receipts= new ArrayList<>();
+        Receipts.add(new Receipts("product1","1","temp"));
+        Receipts.add(new Receipts("product2","2","temp"));
+        Receipts.add(new Receipts("product3","3","temp"));
+        ReceiptsRecyclerViewAdapter adapter = new ReceiptsRecyclerViewAdapter(this);
+        adapter.setReceiptsList(Receipts);
+        ReceiptsRecyclerView.setAdapter(adapter);
+        ReceiptsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
+
+
+
     }
 
     @Override
