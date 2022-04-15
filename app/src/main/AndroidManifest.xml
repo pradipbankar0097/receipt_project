@@ -17,11 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MongoDbRealmCourse">
         <activity
-            android:name=".signup"
-            android:exported="true"
-
-            >
-
+            android:name=".SignUpActivity"
+            android:exported="true">
 
 
         </activity>

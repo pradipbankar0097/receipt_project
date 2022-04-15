@@ -107,7 +107,7 @@
         android:layout_centerHorizontal="true"
         android:text="Already a Member? LogIn"
         android:layout_alignTop="@+id/signuptitle"
-        android:layout_marginTop="472dp"
+        android:layout_marginTop="480dp"
         android:textColor="@color/white">
 
     </TextView>
