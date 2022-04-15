@@ -3,6 +3,7 @@ package com.example.mongodbrealmcourse;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
 
@@ -171,14 +172,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Button login_btn = findViewById(R.id.go_to_login);
-        Context ctx = this;
-        login_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent switchActivityIntent = new Intent(ctx, LoginActivity.class);
-                startActivity(switchActivityIntent);
-            }
-        });
+        Context ctx = button.getContext();
+//        login_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent switchActivityIntent = new Intent(ctx, LoginActivity.class);
+//                startActivity
+//            }
+//        });
 // For sample only: make sure there is a valid server client ID.
         //validateServerClientID();
 
