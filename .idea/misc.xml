@@ -5,6 +5,10 @@
       <map>
         <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.203" />
         <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.219" />
+        <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/drawable/ic_round_qr_code_scanner_24.xml" value="0.1915" />
+        <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/drawable/ic_round_qr_code_scanner_24_100.xml" value="0.169" />
+        <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/drawable/ic_round_qr_code_scanner_24_white.xml" value="0.169" />
+        <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/drawable/splash_screen.xml" value="0.1915" />
         <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.13621151271753681" />
         <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/layout-w936dp/activity_login.xml" value="0.158984375" />
         <entry key="..\:/Users/win/AndroidStudioProjects/receipt_project/app/src/main/res/layout/activity_home.xml" value="0.264" />

@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../Sdk/icons/material/materialicons/remove_red_eye/baseline_remove_red_eye_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsround/qr_code_scanner/round_qr_code_scanner_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_remove_red_eye_24" />
+                            <entry key="outputName" value="ic_round_qr_code_scanner_24_100" />
                             <entry key="sourceFile" value="C:\Users\win\AndroidStudioProjects\receipt_project" />
                           </map>
                         </option>
