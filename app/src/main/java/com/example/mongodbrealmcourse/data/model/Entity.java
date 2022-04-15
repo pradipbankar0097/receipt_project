@@ -1,13 +1,36 @@
 package com.example.mongodbrealmcourse.data.model;
 
+import android.util.Log;
+
 import org.bson.Document;
 
 import java.util.Calendar;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.User;
+import io.realm.mongodb.mongo.MongoClient;
+import io.realm.mongodb.mongo.MongoCollection;
+import io.realm.mongodb.mongo.MongoDatabase;
+
+
 
 public class Entity {
+
+
     public static class Receipt extends Document {
+
+            static String Appid = "myreceipt-xfltt";
+            static App app = new App(new AppConfiguration.Builder(Appid).build());
+            final String TAG = "ServerAuthCodeActivity";
+            final int RC_GET_AUTH_CODE = 9003;
+            static User user = app.currentUser();
+            static MongoClient mongoClient = user.getMongoClient("myservice");
+            static MongoDatabase mongoDatabase = mongoClient.getDatabase("mydatabase");
+
+            static MongoCollection<Document> receipts_collection = mongoDatabase.getCollection("receipts_collection");
+
         // receipt(receipt_id, time, amount, customer_id)
         public Receipt(User user, String receipt_id, String amount, String customer_id){
             super("userid",user.getId());
@@ -15,6 +38,20 @@ public class Entity {
                     .append("time", Calendar.getInstance().getTime())
                     .append("amount", amount)
                     .append("customer_id", customer_id);
+        }
+        public static boolean deleteReceipt(String receipt_id){
+            AtomicBoolean deleted = new AtomicBoolean(false);
+            receipts_collection.deleteOne(new Document("receipt_id",receipt_id)).getAsync(task->{
+                if(task.isSuccess()){
+                    deleted.set(true);
+                    Log.v("msg","Receipt deleted with id : "+receipt_id);
+                }
+                else{
+                    Log.v("msg","could not delete receipt with id : "+receipt_id);
+                }
+            });
+            deleted.set(true);
+            return deleted.get();
         }
     }
 
