@@ -5,7 +5,9 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.opengl.Visibility;
 import android.os.Bundle;
 
@@ -25,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mongodbrealmcourse.HomeActivity;
 import com.example.mongodbrealmcourse.MainActivity;
 import com.example.mongodbrealmcourse.R;
 import com.example.mongodbrealmcourse.ui.login.LoginViewModel;
@@ -48,6 +51,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+        Boolean isLoggedIn = pref.getBoolean("isLoggedIn",false);
+        if(isLoggedIn)
+        {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+
+        }
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -154,7 +166,11 @@ public class LoginActivity extends AppCompatActivity {
                         if(result.isSuccess())
                         {
                             Log.v("User","Logged In Successfully");
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putBoolean("isLoggedIn",true);
+                            editor.apply();
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
 
 

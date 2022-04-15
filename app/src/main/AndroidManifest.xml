@@ -18,7 +18,10 @@
         android:theme="@style/Theme.MongoDbRealmCourse">
         <activity
             android:name=".signup"
-            android:exported="true">
+            android:exported="true"
+            >
+
+
 
         </activity>
 
@@ -27,6 +30,8 @@
             android:exported="true"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.MongoDbRealmCourse.NoActionBar">
+
+
 
         </activity>
         <activity
@@ -38,6 +43,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
         </activity>
         <activity android:name=".MainActivity">
