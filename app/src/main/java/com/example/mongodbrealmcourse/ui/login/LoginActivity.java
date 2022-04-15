@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.loginbtn;
+        final TextView register = (TextView) findViewById(R.id.register);
         final ProgressBar loadingProgressBar = binding.loading;
 
         Realm.init(this);
@@ -157,15 +158,12 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
 
 
-
-
                         }
                         else
                         {
                             Toast.makeText(LoginActivity.this, "Invalid Credentials, Try Again!", Toast.LENGTH_SHORT).show();
                             usernameEditText.setText("");
                             passwordEditText.setText("");
-
 
                         }
                         loadingProgressBar.setVisibility(View.GONE);
@@ -174,7 +172,21 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        register.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i1 = new Intent(getApplicationContext(),com.example.mongodbrealmcourse.signup.class);
+                startActivity(i1);
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
+            }
+        });
+
     }
+
+
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
