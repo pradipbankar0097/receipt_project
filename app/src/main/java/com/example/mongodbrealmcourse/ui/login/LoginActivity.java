@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_MongoDbRealmCourse);
+
 
         SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
         Boolean isLoggedIn = pref.getBoolean("isLoggedIn",false);
@@ -61,7 +63,9 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
+
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
 
 
