@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="sgnbtun">#cc66ff</color>
+    <color name="bg_purple">#9a19e2</color>
+
 </resources>

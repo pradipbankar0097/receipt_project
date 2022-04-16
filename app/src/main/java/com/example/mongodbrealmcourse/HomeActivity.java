@@ -1,13 +1,19 @@
 package com.example.mongodbrealmcourse;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.mongodbrealmcourse.data.model.Receipts;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,6 +32,8 @@ public class HomeActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
     private RecyclerView ReceiptsRecyclerView;
+    //private ActionBarDrawerToggle toggle;
+
 
 
     @Override
@@ -37,6 +45,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
         setSupportActionBar(binding.appBarHome.toolbar);
+        //toggle =new ActionBarDrawerToggle(  this, drawer, toolbar, R. string.open,R.string.close);
+        //drawer. addDrawerlistener(toggle);
+        //toggle.syncState();
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,12 +55,40 @@ public class HomeActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+       //DrawerLayout drawer= findViewById(R.id.drawer_Layout);
+        //NavigationView navigationView = findViewById(R.id.nav_view);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item)
+                    //Handle navigation view item clicks here.
+            {
+                drawer.closeDrawer(GravityCompat.START);
+                switch (item.getItemId()){
+                    case R.id.nav_home:
+                        Toast.makeText(HomeActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.nav_archived:
+                        Toast.makeText(HomeActivity.this, "Archived Receipts", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.nav_account:
+                        Toast.makeText(HomeActivity.this, "My Account", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.nav_logout:
+                        Toast.makeText(HomeActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+                        break;
+
+                }
+                return true;
+            }
+        });
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_archived, R.id.nav_account, R.id.nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
