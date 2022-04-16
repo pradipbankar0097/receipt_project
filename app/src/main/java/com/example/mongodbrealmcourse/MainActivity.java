@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telecom.CallRedirectionService;
 import android.util.Log;
@@ -115,8 +116,14 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
         dataEditText = (EditText) findViewById(R.id.data);
 
+// for pradip
 
+//        ----------------------------------------------------------------------------------------------------------------
+        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+        String username = pref.getString("username",null);
+        String password = pref.getString("password",null);
 
+//---------------------------------------------------------------------------------------------------------------------------
         /*app.getEmailPassword().registerUserAsync("CS@CS.com","Rocking",it->{
             if(it.isSuccess())
             {
