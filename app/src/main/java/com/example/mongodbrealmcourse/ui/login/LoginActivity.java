@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.opengl.Visibility;
 import android.os.Bundle;
 
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     String Appid = "myreceipt-xfltt";
     private App app;
+
 
 
     @Override

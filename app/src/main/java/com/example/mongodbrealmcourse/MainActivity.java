@@ -143,6 +143,23 @@ public class MainActivity extends AppCompatActivity {
                 MongoCollection<Document> store_collection = mongoDatabase.getCollection("store_collection");
                 MongoCollection<Document> item_collection = mongoDatabase.getCollection("item_collection");
 
+//        ConnClass con = new ConnClass();
+//        con.connectToDB(this);
+        Entity.Receipt receipt = new Entity.Receipt(user.getId(),"rec1234","765","cust1","ca" +
+                "cashier1");
+        Entity.Cashier cashier = new Entity.Cashier(user.getId(),"cashier1","Manoj","Dmart");
+        cashier.addReceipt(receipt);
+        receipts_collection.insertOne(receipt).getAsync(result -> {
+                    if(result.isSuccess())
+                    {
+                        Log.v("Data","Receipt Inserted Successfully by cashier");
+//                        added.set(true);
+                    }
+                    else
+                    {
+                        Log.v("Data","Cashier failed to add receipt:"+result.getError().toString());
+                    }
+                });
 //                mongoCollection.insertOne(new Document("userid",user.getId()).append("data",dataEditText.getText().toString())).getAsync(result -> {
 //                    if(result.isSuccess())
 //                    {
@@ -155,16 +172,16 @@ public class MainActivity extends AppCompatActivity {
 //                });
 
 
-                receipts_collection.insertOne(new Entity.Receipt(user,"firstReceiptId","firstAmount", "firstCustomerID")).getAsync(result -> {
-                    if(result.isSuccess())
-                    {
-                        Log.v("Data","Receipt Inserted Successfully");
-                    }
-                    else
-                    {
-                        Log.v("Data","Error:"+result.getError().toString());
-                    }
-                });
+//                receipts_collection.insertOne(new Entity.Receipt(user,"firstReceiptId","firstAmount", "firstCustomerID")).getAsync(result -> {
+//                    if(result.isSuccess())
+//                    {
+//                        Log.v("Data","Receipt Inserted Successfully");
+//                    }
+//                    else
+//                    {
+//                        Log.v("Data","Error:"+result.getError().toString());
+//                    }
+//                });
 
 
 

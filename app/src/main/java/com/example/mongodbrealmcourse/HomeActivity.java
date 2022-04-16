@@ -1,9 +1,13 @@
 package com.example.mongodbrealmcourse;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.mongodbrealmcourse.data.ConnClass;
+import com.example.mongodbrealmcourse.data.model.Entity;
 import com.example.mongodbrealmcourse.data.model.Receipts;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -19,13 +23,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mongodbrealmcourse.databinding.ActivityHomeBinding;
 
+import org.bson.Document;
+
 import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.mongodb.App;
+import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.Credentials;
+import io.realm.mongodb.User;
+import io.realm.mongodb.mongo.MongoClient;
+import io.realm.mongodb.mongo.MongoCollection;
+import io.realm.mongodb.mongo.MongoDatabase;
 
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
     private RecyclerView ReceiptsRecyclerView;
+    public String Appid = "myreceipt-xfltt";
+    private App app;
+    public MongoDatabase mongoDatabase;
+    public MongoClient mongoClient;
+    public User user;
+    public MongoCollection<Document> mongoCollection;
+    public MongoCollection<Document> receipts_collection;
+    public MongoCollection<Document> cashier_collection;
+    public MongoCollection<Document> customer_collection;
+    public MongoCollection<Document> store_collection;
+    public MongoCollection<Document> item_collection;
+    public Context context;
+    public String userId;
 
 
     @Override
@@ -40,6 +68,21 @@ public class HomeActivity extends AppCompatActivity {
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Realm.init(HomeActivity.this);
+                App app = new App(new AppConfiguration.Builder(Appid).build());
+                Credentials credentials = Credentials.anonymous();
+                app.loginAsync(credentials, new App.Callback<User>() {
+                    @Override
+                    public void onResult(App.Result<User> result) {
+                        if(result.isSuccess()){
+                            Log.v("login : ","successsss");
+                        }
+                        else{
+                            Log.v("login : ","failed");
+                        }
+                    }
+                });
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

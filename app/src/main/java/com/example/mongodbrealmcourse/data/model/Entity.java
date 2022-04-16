@@ -2,6 +2,8 @@ package com.example.mongodbrealmcourse.data.model;
 
 import android.util.Log;
 
+import com.example.mongodbrealmcourse.data.ConnClass;
+
 import org.bson.Document;
 
 import java.util.Calendar;
@@ -21,47 +23,64 @@ public class Entity {
 
     public static class Receipt extends Document {
 
-            static String Appid = "myreceipt-xfltt";
-            static App app = new App(new AppConfiguration.Builder(Appid).build());
-            final String TAG = "ServerAuthCodeActivity";
-            final int RC_GET_AUTH_CODE = 9003;
-            static User user = app.currentUser();
-            static MongoClient mongoClient = user.getMongoClient("myservice");
-            static MongoDatabase mongoDatabase = mongoClient.getDatabase("mydatabase");
 
-            static MongoCollection<Document> receipts_collection = mongoDatabase.getCollection("receipts_collection");
-
+        // Receipt Constructor
         // receipt(receipt_id, time, amount, customer_id)
-        public Receipt(User user, String receipt_id, String amount, String customer_id){
-            super("userid",user.getId());
+        public Receipt(String userid, String receipt_id, String amount, String customer_id,String cashier_id){
+            super("userid",userid);
             this.append("receipt_id",receipt_id)
                     .append("time", Calendar.getInstance().getTime())
                     .append("amount", amount)
-                    .append("customer_id", customer_id);
+                    .append("customer_id", customer_id)
+                    .append("cashier_id",cashier_id);
         }
-        public static boolean deleteReceipt(String receipt_id){
-            AtomicBoolean deleted = new AtomicBoolean(false);
-            receipts_collection.deleteOne(new Document("receipt_id",receipt_id)).getAsync(task->{
-                if(task.isSuccess()){
-                    deleted.set(true);
-                    Log.v("msg","Receipt deleted with id : "+receipt_id);
-                }
-                else{
-                    Log.v("msg","could not delete receipt with id : "+receipt_id);
-                }
-            });
-            deleted.set(true);
-            return deleted.get();
-        }
+//        public static boolean deleteReceipt(String receipt_id){
+//            AtomicBoolean deleted = new AtomicBoolean(false);
+//            receipts_collection.deleteOne(new Document("receipt_id",receipt_id)).getAsync(task->{
+//                if(task.isSuccess()){
+//                    deleted.set(true);
+//                    Log.v("msg","Receipt deleted with id : "+receipt_id);
+//                }
+//                else{
+//                    Log.v("msg","could not delete receipt with id : "+receipt_id);
+//                }
+//            });
+//            deleted.set(true);
+//            return deleted.get();
+//        }
+
+
     }
 
     public static class Cashier extends Document{
+
+        ConnClass con;
         // cashier(String cashier_id, String name, String store_id)
-        public Cashier(User user, String cashier_id, String name, String store_id){
-            super("userid",user.getId());
+        public Cashier(String userid, String cashier_id, String name, String store_id){
+            super("userid",userid);
             this.append("cashier_id",cashier_id)
                     .append("name", name)
                     .append("store_id", store_id);
+//            con = new ConnClass();
+//            con.connectToDB(con.context);
+        }
+
+        public boolean addReceipt(Receipt receipt){
+            AtomicBoolean added = new AtomicBoolean(false);
+//            con.connectToDB(con.context);
+//            con.receipts_collection = con.user.getMongoClient("myservice").getDatabase("mydatabase").getCollection("receipts_collection");
+//            con.receipts_collection.insertOne(receipt).getAsync(result -> {
+//                    if(result.isSuccess())
+//                    {
+//                        Log.v("Data","Receipt Inserted Successfully by cashier");
+//                        added.set(true);
+//                    }
+//                    else
+//                    {
+//                        Log.v("Data","Cashier failed to add receipt:"+result.getError().toString());
+//                    }
+//                });
+            return added.get();
         }
     }
 
