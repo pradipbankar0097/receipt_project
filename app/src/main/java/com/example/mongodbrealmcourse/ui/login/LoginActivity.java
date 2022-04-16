@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
         Boolean isLoggedIn = pref.getBoolean("isLoggedIn",false);
+
         if(isLoggedIn)
         {
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -174,6 +175,8 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
                             editor.putBoolean("isLoggedIn",true);
+                            editor.putString("username",usernameEditText.getText().toString());
+                            editor.putString("password",passwordEditText.getText().toString());
                             editor.apply();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
@@ -208,7 +211,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-//    loginButton.setOnClickListener { login(false) }
+    //    loginButton.setOnClickListener { login(false) }
 //        createUserButton.setOnClickListener { login(true) }
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();

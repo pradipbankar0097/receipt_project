@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.v("User","Registration Failed");
             }
         });*/
-        button.setOnClickListener(new View.OnClickListener() {
+        /*button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // on click start
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //on click end
             }
-        });
+        });*/
         Button login_btn = findViewById(R.id.go_to_login);
         Context ctx = button.getContext();
 //        login_btn.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         // an access token. By asking for profile access (through
         // DEFAULT_SIGN_IN) you will also get an ID Token as a result of the
         // code exchange.
-        /*String serverClientId = getString(R.string.server_client_id);
+      /*  String serverClientId = getString(R.string.server_client_id);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
                 .requestServerAuthCode(serverClientId)
@@ -199,8 +199,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         // [END configure_signin]
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);*/
-
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+*/
     }
 
 

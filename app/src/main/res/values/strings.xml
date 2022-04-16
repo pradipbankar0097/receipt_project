@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">MongoDbRealmCourse</string>
     <string name="title_activity_maps">Map</string>
-    <string name="server_client_id">WEB CLIENT ID</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -24,4 +23,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="server_client_id">578547413763-9rpqjan1ge8ieoc8nv1tuapoir8dmsd8.apps.googleusercontent.com</string>
 </resources>

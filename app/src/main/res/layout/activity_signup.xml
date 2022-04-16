@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:whatever="http://schemas.android.com/apk/res-auto"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -41,6 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/email"
+        whatever:testType="email"
+        android:inputType="textEmailAddress"
         android:layout_below="@+id/username"
         android:background="#30FFFFFF"
         android:hint="Email"
@@ -51,6 +54,10 @@
         android:drawableStart="@drawable/ic_baseline_email_24"
         android:drawablePadding="20dp"
         android:drawableLeft="@drawable/ic_baseline_email_24" />
+<!--whatever:testType="regexp"
+        whatever:customRegexp="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" -->
+
+
 
     <EditText
         android:layout_width="match_parent"
@@ -129,13 +136,22 @@
         android:gravity="center"
         android:layout_alignParentBottom="true">
 
+<!--        <com.google.android.gms.common.SignInButton-->
+<!--            android:id="@+id/googleauth"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="20dp"/>-->
+
+
         <ImageView
+            android:id="@+id/googleauth"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="20dp"
             android:src="@drawable/google"/>
 
         <ImageView
+            android:id="@+id/fbauth"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_margin="20dp"
