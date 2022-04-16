@@ -1,5 +1,6 @@
 package com.example.mongodbrealmcourse.data.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.mongodbrealmcourse.data.ConnClass;
@@ -53,6 +54,12 @@ public class Entity {
     }
 
     public static class Cashier extends Document{
+        public MongoDatabase mongoDatabase;
+    public MongoClient mongoClient;
+    public User user;
+    public MongoCollection<Document> mongoCollection;
+    public MongoCollection<Document> receipts_collection;
+    public MongoCollection<Document> cashier_collection;
 
         ConnClass con;
         // cashier(String cashier_id, String name, String store_id)
@@ -62,24 +69,31 @@ public class Entity {
                     .append("name", name)
                     .append("store_id", store_id);
 //            con = new ConnClass();
-//            con.connectToDB(con.context);
+//            con.connectToDB(context);
         }
 
-        public boolean addReceipt(Receipt receipt){
+        public boolean addReceipt(App app,Context context, Receipt receipt){
             AtomicBoolean added = new AtomicBoolean(false);
-//            con.connectToDB(con.context);
-//            con.receipts_collection = con.user.getMongoClient("myservice").getDatabase("mydatabase").getCollection("receipts_collection");
-//            con.receipts_collection.insertOne(receipt).getAsync(result -> {
-//                    if(result.isSuccess())
-//                    {
-//                        Log.v("Data","Receipt Inserted Successfully by cashier");
-//                        added.set(true);
-//                    }
-//                    else
-//                    {
-//                        Log.v("Data","Cashier failed to add receipt:"+result.getError().toString());
-//                    }
-//                });
+                            User user = app.currentUser();
+
+            mongoClient = user.getMongoClient("myservice");
+            mongoDatabase = mongoClient.getDatabase("mydatabase");
+            mongoCollection = mongoDatabase.getCollection("mycollection");
+            receipts_collection = mongoDatabase.getCollection("receipts_collection");
+            cashier_collection = mongoDatabase.getCollection("cashier_collection");
+//            Entity.Receipt receipt = new Entity.Receipt(user.getId(),"rec1234","765","cust1","ca" +
+//                "cashier1");
+//        Entity.Cashier cashier = new Entity.Cashier(user.getId(),"cashier1","Manoj","Dmart");
+//        cashier.addReceipt(HomeActivity.this,receipt);
+              receipts_collection.insertOne(receipt).getAsync(result -> {
+                  if(result.isSuccess()){
+                      Log.v("inserted","YES");
+                  }
+                  else{
+                      Log.v("inserted",result.getError().toString());
+                  }
+              });
+
             return added.get();
         }
     }

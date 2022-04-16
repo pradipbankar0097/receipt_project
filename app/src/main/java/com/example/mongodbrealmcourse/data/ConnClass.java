@@ -30,9 +30,9 @@ public class ConnClass {
 
     public void connectToDB(Context context){
         try {
-            Realm.init(context);
-
-            app = new App(new AppConfiguration.Builder(Appid).build());
+//            Realm.init(context);
+//
+//            app = new App(new AppConfiguration.Builder(Appid).build());
             User user = app.currentUser();
             userId = user.getId();
             Log.v("user id : ",userId);
