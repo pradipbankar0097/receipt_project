@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.mongodbrealmcourse.HomeActivity;
 import com.example.mongodbrealmcourse.MainActivity;
 import com.example.mongodbrealmcourse.R;
+import com.example.mongodbrealmcourse.SignUpActivity;
 import com.example.mongodbrealmcourse.ui.login.LoginViewModel;
 import com.example.mongodbrealmcourse.ui.login.LoginViewModelFactory;
 import com.example.mongodbrealmcourse.databinding.ActivityLoginBinding;
@@ -200,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent i1 = new Intent(getApplicationContext(),com.example.mongodbrealmcourse.signup.class);
+                Intent i1 = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(i1);
 //                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                startActivity(intent);
@@ -210,7 +211,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
+//    loginButton.setOnClickListener { login(false) }
+//        createUserButton.setOnClickListener { login(true) }
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience

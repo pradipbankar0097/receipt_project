@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
-    tools:context=".signup">
+    tools:context=".SignUpActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -87,6 +87,8 @@
         android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24" />
 
 
+
+
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -99,10 +101,23 @@
         android:layout_margin="15dp"/>
 
     <TextView
+        android:id="@+id/signuplogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Already a Member? LogIn"
+        android:layout_alignTop="@+id/signuptitle"
+        android:layout_marginTop="480dp"
+        android:textColor="@color/white">
+
+    </TextView>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/info"
         android:text="or signup with"
+        android:textColor="@color/black"
         android:layout_above="@+id/socialicons"
         android:layout_centerHorizontal="true">
     </TextView>
@@ -126,5 +141,7 @@
             android:layout_margin="20dp"
             android:src="@drawable/fb"/>
     </LinearLayout>
+
+
 
 </RelativeLayout>
