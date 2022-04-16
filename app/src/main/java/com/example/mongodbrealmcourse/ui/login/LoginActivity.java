@@ -5,7 +5,9 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.opengl.Visibility;
 import android.os.Bundle;
 
@@ -25,8 +27,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mongodbrealmcourse.HomeActivity;
 import com.example.mongodbrealmcourse.MainActivity;
 import com.example.mongodbrealmcourse.R;
+import com.example.mongodbrealmcourse.SignUpActivity;
 import com.example.mongodbrealmcourse.ui.login.LoginViewModel;
 import com.example.mongodbrealmcourse.ui.login.LoginViewModelFactory;
 import com.example.mongodbrealmcourse.databinding.ActivityLoginBinding;
@@ -48,8 +52,22 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_MongoDbRealmCourse);
+
+
+        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+        Boolean isLoggedIn = pref.getBoolean("isLoggedIn",false);
+
+        if(isLoggedIn)
+        {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+
+        }
+
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
 
 
@@ -154,7 +172,13 @@ public class LoginActivity extends AppCompatActivity {
                         if(result.isSuccess())
                         {
                             Log.v("User","Logged In Successfully");
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putBoolean("isLoggedIn",true);
+                            editor.putString("username",usernameEditText.getText().toString());
+                            editor.putString("password",passwordEditText.getText().toString());
+                            editor.apply();
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
 
 
@@ -177,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent i1 = new Intent(getApplicationContext(),com.example.mongodbrealmcourse.signup.class);
+                Intent i1 = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(i1);
 //                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                startActivity(intent);
@@ -187,7 +211,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
+    //    loginButton.setOnClickListener { login(false) }
+//        createUserButton.setOnClickListener { login(true) }
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
