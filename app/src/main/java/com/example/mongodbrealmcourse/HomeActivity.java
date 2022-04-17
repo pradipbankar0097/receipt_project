@@ -64,14 +64,15 @@ public class HomeActivity extends AppCompatActivity {
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Realm.init(HomeActivity.this);
-                App app = new App(new AppConfiguration.Builder(Appid).build());
+        Realm.init(this);
+        app = new App(new AppConfiguration.Builder(Appid).build());
 
         if(app.currentUser()==null){
+            Log.v("User","Current User is null");
 //            Realm.init(HomeActivity.this);
 //                App app = new App(new AppConfiguration.Builder(Appid).build());
-                Credentials credentials = Credentials.anonymous();
-                credentials = Credentials.emailPassword("pradipbankar0097@gmail.com","pradip1");
+
+                Credentials credentials = Credentials.emailPassword("pradipbankar0097@gmail.com","pradip1");
                 app.loginAsync(credentials, new App.Callback<User>() {
                     @Override
                     public void onResult(App.Result<User> result) {
@@ -124,8 +125,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Realm.init(HomeActivity.this);
-                App app = new App(new AppConfiguration.Builder(Appid).build());
+                app = new App(new AppConfiguration.Builder(Appid).build());
                 Credentials credentials = Credentials.anonymous();
                 credentials = Credentials.emailPassword("pradipbankar0097@gmail.com","pradip1");
                 app.loginAsync(credentials, new App.Callback<User>() {
@@ -198,30 +198,30 @@ public class HomeActivity extends AppCompatActivity {
         ArrayList<Receipts> Receipts= new ArrayList<>();
 
         // retrieving data
-            User user = app.currentUser();
-
-            mongoClient = user.getMongoClient("myservice");
-            mongoDatabase = mongoClient.getDatabase("mydatabase");
-            mongoCollection = mongoDatabase.getCollection("mycollection");
-            receipts_collection = mongoDatabase.getCollection("receipts_collection");
-
-        RealmResultTask<MongoCursor<Document>> docs = receipts_collection.find(new Document().append("userid",user.getId())).iterator();
-        docs.getAsync(result -> {
-            if (result.isSuccess()){
-                Log.v("retrieve","success");
-                MongoCursor<Document> cur = result.get();
-                while(cur.hasNext()){
-                    Document curDoc = cur.next();
-                    Log.v("data",curDoc.toJson().toString());
-                    if(curDoc.getString("receipt_id") != null){
-                        Receipts.add(new Receipts(curDoc.getString("receipt_id"),curDoc.getString("amount"),"temp"));
-                    }
-                }
-            }
-            else{
-                Log.v("retrieve error : " , result.getError().toString());
-            }
-        });
+//            User user = app.currentUser();
+//
+//            mongoClient = user.getMongoClient("myservice");
+//            mongoDatabase = mongoClient.getDatabase("mydatabase");
+//            mongoCollection = mongoDatabase.getCollection("mycollection");
+////            receipts_collection = mongoDatabase.getCollection("receipts_collection");
+//
+//        RealmResultTask<MongoCursor<Document>> docs = receipts_collection.find(new Document().append("userid",user.getId())).iterator();
+//        docs.getAsync(result -> {
+//            if (result.isSuccess()){
+//                Log.v("retrieve","success");
+//                MongoCursor<Document> cur = result.get();
+//                while(cur.hasNext()){
+//                    Document curDoc = cur.next();
+//                    Log.v("data",curDoc.toJson().toString());
+//                    if(curDoc.getString("receipt_id") != null){
+//                        Receipts.add(new Receipts(curDoc.getString("receipt_id"),curDoc.getString("amount"),"temp"));
+//                    }
+//                }
+//            }
+//            else{
+//                Log.v("retrieve error : " , result.getError().toString());
+//            }
+//        });
         // retrieving data end
 
         Receipts.add(new Receipts("product1","1","temp"));
