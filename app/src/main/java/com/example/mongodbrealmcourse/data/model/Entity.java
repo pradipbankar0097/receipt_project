@@ -7,16 +7,18 @@ import com.example.mongodbrealmcourse.data.ConnClass;
 
 import org.bson.Document;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
+import io.realm.mongodb.RealmResultTask;
 import io.realm.mongodb.User;
 import io.realm.mongodb.mongo.MongoClient;
 import io.realm.mongodb.mongo.MongoCollection;
 import io.realm.mongodb.mongo.MongoDatabase;
-
+import io.realm.mongodb.mongo.iterable.MongoCursor;
 
 
 public class Entity {
@@ -51,6 +53,41 @@ public class Entity {
 //        }
 
 
+        public MongoDatabase mongoDatabase;
+    public MongoClient mongoClient;
+    public User user;
+    public MongoCollection<Document> mongoCollection;
+    public MongoCollection<Document> receipts_collection;
+    public MongoCollection<Document> cashier_collection;
+
+
+        public ArrayList<Receipt> retrieveAllReceipts(App app,Context context){
+            ArrayList<Receipt> to_ret = new ArrayList<Receipt>();
+            User user = app.currentUser();
+
+            mongoClient = user.getMongoClient("myservice");
+            mongoDatabase = mongoClient.getDatabase("mydatabase");
+            receipts_collection = mongoDatabase.getCollection("receipts_collection");
+
+        RealmResultTask<MongoCursor<Document>> docs = receipts_collection.find().iterator();
+        docs.getAsync(result -> {
+            if (result.isSuccess()){
+                Log.v("retrieve","success");
+                MongoCursor<Document> cur = result.get();
+                while(cur.hasNext()){
+                    Document curDoc = cur.next();
+                    Log.v("data",curDoc.toJson().toString());
+                    if(curDoc.getString("receipt_id") != null){
+                        to_ret.add(new Receipt(curDoc.getString("userid"), curDoc.getString("receipt_id"), curDoc.getString("amount"), curDoc.getString("customer_id"),curDoc.getString("cashier_id")));
+                    }
+                }
+            }
+            else{
+                Log.v("retrieve error : " , result.getError().toString());
+            }
+        });
+        return to_ret;
+        }
     }
 
     public static class Cashier extends Document{
@@ -99,11 +136,45 @@ public class Entity {
     }
 
     public static class Customer extends Document{
+        public MongoDatabase mongoDatabase;
+    public MongoClient mongoClient;
+    public User user;
+    public MongoCollection<Document> mongoCollection;
+    public MongoCollection<Document> receipts_collection;
+    public MongoCollection<Document> cashier_collection;
         // cashier(String cashier_id, String name, String store_id)
         public Customer(User user, String customer_id, String name){
             super("userid",user.getId());
             this.append("customer_id",customer_id)
                     .append("name", name);
+        }
+
+        public ArrayList<Receipt> retrieveReceipts(App app,Context context){
+            ArrayList<Receipt> to_ret = new ArrayList<Receipt>();
+            User user = app.currentUser();
+
+            mongoClient = user.getMongoClient("myservice");
+            mongoDatabase = mongoClient.getDatabase("mydatabase");
+            receipts_collection = mongoDatabase.getCollection("receipts_collection");
+
+        RealmResultTask<MongoCursor<Document>> docs = receipts_collection.find(new Document().append("userid",user.getId())).iterator();
+        docs.getAsync(result -> {
+            if (result.isSuccess()){
+                Log.v("retrieve","success");
+                MongoCursor<Document> cur = result.get();
+                while(cur.hasNext()){
+                    Document curDoc = cur.next();
+                    Log.v("data",curDoc.toJson().toString());
+                    if(curDoc.getString("receipt_id") != null){
+                        to_ret.add(new Receipt(curDoc.getString("userid"), curDoc.getString("receipt_id"), curDoc.getString("amount"), curDoc.getString("customer_id"),curDoc.getString("cashier_id")));
+                    }
+                }
+            }
+            else{
+                Log.v("retrieve error : " , result.getError().toString());
+            }
+        });
+        return to_ret;
         }
     }
 
