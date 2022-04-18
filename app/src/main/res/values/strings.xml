@@ -21,8 +21,13 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+<!--    <string name="menu_gallery">Gallery</string>-->
+<!--    <string name="menu_slideshow">Slideshow</string>-->
+    <string name="hello_blank_fragment">Blank Fragment</string>s
+
 
     <string name="server_client_id">578547413763-9rpqjan1ge8ieoc8nv1tuapoir8dmsd8.apps.googleusercontent.com</string>
+    <string name="menu_archived_receipts">Archived Receipts</string>
+    <string name="menu_my_account">My Account</string>
+    <string name="menu_logout">Logout</string>
 </resources>

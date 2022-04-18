@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.andreabaccega:android-form-edittext:1.3.5@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ad1dd8e2d8c7af334ff57ca858ab33fa/transformed/jetified-android-form-edittext-1.3.5/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ad1dd8e2d8c7af334ff57ca858ab33fa/transformed/jetified-android-form-edittext-1.3.5/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ad1dd8e2d8c7af334ff57ca858ab33fa/transformed/jetified-android-form-edittext-1.3.5/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5fef14f9d4147ac9808c1ef5504550b6/transformed/jetified-android-form-edittext-1.3.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5fef14f9d4147ac9808c1ef5504550b6/transformed/jetified-android-form-edittext-1.3.5/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5fef14f9d4147ac9808c1ef5504550b6/transformed/jetified-android-form-edittext-1.3.5/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.andreabaccega/android-form-edittext/1.3.5/1243be006e281128e59e94b0bc2cfa4743d61521/android-form-edittext-1.3.5-javadoc.jar!/" />

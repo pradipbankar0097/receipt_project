@@ -14,17 +14,17 @@
     <fragment
         android:id="@+id/nav_archived"
         android:name="com.example.mongodbrealmcourse.ui.gallery.GalleryFragment"
-        android:label="@string/archived_receipts"
+        android:label="@string/menu_archived_receipts"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_account"
         android:name="com.example.mongodbrealmcourse.ui.slideshow.SlideshowFragment"
-        android:label="@string/my_account"
+        android:label="@string/menu_my_account"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_logout"
         android:name="com.example.mongodbrealmcourse.ui.logout"
-        android:label="@string/logout"
+        android:label="@string/menu_logout"
         tools:layout="@layout/fragment_logout2" />
 </navigation>
