@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private App app;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
 
         if(isLoggedIn)
         {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//            startActivity(intent);
 
         }
 

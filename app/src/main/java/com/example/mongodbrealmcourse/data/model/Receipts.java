@@ -1,6 +1,8 @@
 package com.example.mongodbrealmcourse.data.model;
 
-public class Receipts {
+import io.realm.RealmObject;
+
+public class Receipts  {
     private String name;
     private  String price;
     private String imgUrl;

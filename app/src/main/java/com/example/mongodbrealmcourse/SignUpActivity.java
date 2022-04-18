@@ -79,9 +79,14 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-//       Realm.init(this);
-        App app = new App(new AppConfiguration.Builder(Appid).build());
-        user = app.currentUser();
+       Realm.init(this);
+        app = new App(new AppConfiguration.Builder(Appid).build());
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//        user = app.currentUser();
+
 
         username = (EditText)  findViewById(R.id.username);
         email = (EditText)  findViewById(R.id.email);
@@ -95,11 +100,12 @@ public class SignUpActivity extends AppCompatActivity {
         signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mongoClient = user.getMongoClient("myservice");
-                mongoDatabase = mongoClient.getDatabase("mydatabase");
+//                mongoClient = user.getMongoClient("myservice");
+//                mongoDatabase = mongoClient.getDatabase("mydatabase");
                 Email = email.getText().toString();
                 Pass = pass.getText().toString();
                 isAllFieldsChecked = CheckAllFields();
+
                 if (isAllFieldsChecked) {
                     Credentials emailPasswordCredentials = Credentials.emailPassword(Email,Pass);
 
@@ -135,11 +141,12 @@ public class SignUpActivity extends AppCompatActivity {
         googleauth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.v("User","I am here signing in");
                 signIn();
             }
         });
 
-        validateServerClientID();
+//        validateServerClientID();
 
 //        String serverClientId = getString(R.string.server_client_id);
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -152,7 +159,7 @@ public class SignUpActivity extends AppCompatActivity {
 //                .build();
         // [END configure_signin]
 
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 //        SignInButton signInButton = findViewById(R.id.googleauth);
 //        signInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -242,13 +249,14 @@ public class SignUpActivity extends AppCompatActivity {
 //        });
 
     }
-    private void signIn() {
+    private void    signIn() {
+        Log.v("User","SignIn Called");
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_GET_AUTH_CODE);
+
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_GET_AUTH_CODE) {
             // [START get_auth_code]
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -274,10 +282,13 @@ public class SignUpActivity extends AppCompatActivity {
                 });
 
             } catch (ApiException e) {
-                Log.w(TAG, "Sign-in failed", e);
+                Log.w(TAG, e.getMessage());
             }
             // [END get_auth_code]
         }
+
+
+
     }
 
 
